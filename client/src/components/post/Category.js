@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import { Button } from "reactstrap";
 
 const Categroy = ({ posts }) => {
-  console.log(posts);
   return (
     <>
       <div style={{display:'flex', justifyContent:'center'}}>

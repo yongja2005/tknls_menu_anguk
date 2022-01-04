@@ -3,7 +3,6 @@ import {
 	Navbar, 
 	Container, 
 	Nav, 
-	Collapse, 
 	NavItem, 
 	Form, 
 	Button 
@@ -94,7 +93,7 @@ const AppNavbar = () => {
 			<Navbar color="dark" dark expand="lg" className="sticky-top">
 				<Container>
 				<Link to="/" className="text-white text-decoration-none">
-						7.8
+						안국
 				</Link>
 				<SearchInput isOpen={isOpen} />
 				<Nav className="ml-auto d-flex justfy-content-around" navbar>

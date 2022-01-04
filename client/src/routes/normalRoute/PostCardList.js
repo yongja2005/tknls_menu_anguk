@@ -77,11 +77,11 @@ const PostCardList = () => {
 
 	return (
 		<Fragment>
-			<Helmet title="Home" />
-			<Row className="border-bottom border-dark py-3 mb-3">
+			<Helmet title="7.8 안국" />
+			{/* <Row className="border-bottom border-dark py-3 mb-3">
         <Category posts={categoryFindResult} />
-      </Row>
-			<Row>
+      </Row> */}
+			<Row className='pt-5'>
 				{posts ? <PostCardOne posts={posts} /> : GrowingSpinner}
 			</Row>
 			<div ref={lastPostElementRef}>

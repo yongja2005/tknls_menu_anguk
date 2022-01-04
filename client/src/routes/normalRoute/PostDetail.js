@@ -13,7 +13,7 @@ import { GrowingSpinner } from '../../components/spinner/Spinner';
 import BalloonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
 
-import Comments from '../../components/comments/Comments'
+// import Comments from '../../components/comments/Comments'
 
 const PostDetail = (req) => {
 
@@ -23,7 +23,7 @@ const PostDetail = (req) => {
     (state) => state.post
   );
 	// client/src/redux/reducers/authReducer.js
-	const { userId, userName } = useSelector((state) => state.auth);
+	const { userId } = useSelector((state) => state.auth);
   const { comments } = useSelector((state) => state.comment)
   
   console.log(req ,": req");
@@ -94,15 +94,7 @@ const PostDetail = (req) => {
             return (
               <Fragment>
                 <div className="font-weight-bold text-big">
-                  <span className="mr-3">
-                    <Button color="info">
-                      {postDetail.category.categoryName}
-                    </Button>
-                  </span>
                   {postDetail.title}
-                </div>
-                <div className="align-self-end">
-                  {postDetail.creator.name}
                 </div>
               </Fragment>
             );
@@ -150,11 +142,11 @@ const PostDetail = (req) => {
                   )
                 ) : "Creator"
               }
-            <Comments 
+            {/* <Comments 
               id={req.match.params.id}
               userId={userId}
               userName={userName}
-            />
+            /> */}
             </Container>
           </Row>
         </Fragment>
@@ -166,7 +158,7 @@ const PostDetail = (req) => {
 
 	return (
     <div>
-      <Helmet title={`post | ${title}`} />
+      <Helmet title={`안국 | ${title}`} />
       { loading === true ? GrowingSpinner : Body}
     </div>
   )
