@@ -37,39 +37,36 @@ const AppNavbar = () => {
       type: POSTS_WRITE_REQUEST,
     });
   };
+	const addSpecialClick = () => {
+    dispatch({
+      type: POSTS_WRITE_REQUEST,
+    });
+  };
 
 	const authLink = (
 		<Fragment>
 			<NavItem>
         {userRole === "MainAdmin" ? (
           <Form className="col mt-2">
-            <Link
+            <Link 
               to="/post"
-              className="btn btn-success block text-white px-3"
+              className="btn btn-success block text-white px-3 me-3"
               onClick={addPostClick}
             >
-              Add Post
+              메뉴
             </Link>
+						<Link
+							to="/special/post"
+							className="btn btn-success block text-white px-3 me-3"
+							onClick={addSpecialClick}
+						>
+							특가
+						</Link>
           </Form>
         ) : (
           ""
         )}
       </NavItem>
-			<NavItem className="d-flex justify-content-center">
-				<Form className="col mt-2">
-					{user && user.name ? (
-						<Link to={`/user/${user.name}/profile`}>
-							<Button outline color="light" className="px-3" block>
-								<strong>{user ? `Welcome ${user.name}`:""}</strong>
-							</Button>
-						</Link>
-					) : (
-						<Button outline color="light" className="px-3" block>
-								<strong>"No user!"</strong>
-							</Button>
-					)}
-				</Form>
-			</NavItem>
 			<NavItem>
         <Form className="col">
           <Link onClick={onLogout} to="/#" className="">

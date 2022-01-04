@@ -16,10 +16,13 @@ import LoginModal from '../components/auth/loginModal';
 import SpecialCardList from './normalRoute/SpecialCardList';
 import SpecialWrite from './normalRoute/SpecialWrite';
 import SpecialDetail from './normalRoute/SpecialDetail';
+import SpecialEdit from './normalRoute/SpecialEdit'
+import SpecialLink from '../components/SpecialLink';
 
 const MyRouter = () => (
   <Fragment>
     <AppNavbar />
+    <SpecialLink />
     <Container id="main-body">
       <Switch>
         <Route path="/" exact component={PostCardList} />
@@ -30,6 +33,10 @@ const MyRouter = () => (
         <Route path="/special" exact component={SpecialCardList} />
         <Route path="/special/post" exact component={SpecialWrite} />
         <Route path="/special/:id" exact component={SpecialDetail} />
+
+        <EditProtectedRoute 
+          path="/special/:id/edit" exact component={SpecialEdit}
+        />
 
         <EditProtectedRoute 
           path="/post/:id/edit" exact component={PostEdit}
