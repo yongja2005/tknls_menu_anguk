@@ -45,12 +45,6 @@ const UserSchema = new mongoose.Schema({
       ref: "post",
     },
   ],
-  anguks: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "anguk",
-    },
-  ],
 });
 
 const User = mongoose.model("user", UserSchema);

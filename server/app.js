@@ -11,6 +11,7 @@ import postRoutes from './routes/api/post'
 import userRoutes from './routes/api/user'
 import authRoutes from './routes/api/auth'
 import searchRoutes from './routes/api/search'
+import specialRoutes from './routes/api/special'
 
 const app = express()
 const { MONGO_URI} = config
@@ -38,5 +39,6 @@ mongoose.connect(MONGO_URI, {
 	app.use("/api/user", userRoutes);
 	app.use("/api/auth", authRoutes);
 	app.use("/api/search", searchRoutes);
+	app.use("/api/special", specialRoutes)
 
 export default app;

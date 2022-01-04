@@ -13,6 +13,10 @@ import Profile from "./normalRoute/Profile";
 import { EditProtectedRoute, ProfileProtectedRoute } from './protectedRoute/ProtectedRoute';
 import LoginModal from '../components/auth/loginModal';
 
+import SpecialCardList from './normalRoute/SpecialCardList';
+import SpecialWrite from './normalRoute/SpecialWrite';
+import SpecialDetail from './normalRoute/SpecialDetail';
+
 const MyRouter = () => (
   <Fragment>
     <AppNavbar />
@@ -22,6 +26,11 @@ const MyRouter = () => (
         <Route path="/admin_login" exact component={LoginModal} />
         <Route path="/post" exact component={PostWrite} />
         <Route path="/post/:id" exact component={PostDetail} />
+
+        <Route path="/special" exact component={SpecialCardList} />
+        <Route path="/special/post" exact component={SpecialWrite} />
+        <Route path="/special/:id" exact component={SpecialDetail} />
+
         <EditProtectedRoute 
           path="/post/:id/edit" exact component={PostEdit}
         />
