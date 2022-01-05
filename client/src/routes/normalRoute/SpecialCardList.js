@@ -9,7 +9,7 @@ import SpecialCardOne from '../../components/post/specialCardOne'
 
 const SpecialCardList = () => {
 	// redux/reducers/index.js에서 special: specialReducer
-	const { specials, categoryFindResult, loading, specialCount } = useSelector(
+	const { specials, loading, specialCount } = useSelector(
     (state) => state.special
   );
 	const dispatch = useDispatch()
@@ -81,7 +81,8 @@ const SpecialCardList = () => {
 			{/* <Row className="border-bottom border-dark py-3 mb-3">
         <Category specials={categoryFindResult} />
       </Row> */}
-			<Row className='pt-5'>
+			<Row className=''>
+					<h1 className='border-bottom border-dark pt-3 mb-3'>안국점 오늘의 특가</h1>
 				{specials ? <SpecialCardOne specials={specials} /> : GrowingSpinner}
 			</Row>
 			<div ref={lastSpecialElementRef}>

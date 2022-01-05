@@ -81,7 +81,8 @@ const PostCardList = () => {
 			{/* <Row className="border-bottom border-dark py-3 mb-3">
         <Category posts={categoryFindResult} />
       </Row> */}
-			<Row className='pt-5'>
+			<Row className=''>
+			<h1 className='border-bottom border-dark pt-3 mb-4'>안국점 메뉴</h1>
 				{posts ? <PostCardOne posts={posts} /> : GrowingSpinner}
 			</Row>
 			<div ref={lastPostElementRef}>

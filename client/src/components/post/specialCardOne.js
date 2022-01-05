@@ -8,7 +8,7 @@ const SpecialCardOne = ({specials}) => {
 			{
 				Array.isArray(specials) ? specials.map(({_id, title, fileUrl}) => {
 					return (
-						<div key={_id} className="col-md-6">
+						<div key={_id} className="col-md-4 col-sm-6 col-6">
 							<Link to={`/special/${_id}`} className="text-dark text-decoration-none">
 								<Card className="mb-3">
 									<CardImg top alt="cards img" src={fileUrl}/>

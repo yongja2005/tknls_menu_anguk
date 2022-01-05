@@ -20,9 +20,9 @@ const Search = () => {
 	}, [dispatch, searchTerm])
 
 	return (
-		<div >
-			<Container className='border-bottom border-dark py-3 mb-3'>
-				<h1>"{searchTerm}"이 포함된 메뉴</h1>
+		<div className='pt-3' >
+			<Container className='border-bottom border-dark mb-4'>
+				<h1>"{searchTerm}"이 포함된 안국점 메뉴</h1>
 			</Container>
 			<Row>
 				<PostCardOne posts={ searchResult } />
