@@ -6,7 +6,7 @@ const SpecialCardOne = ({specials}) => {
 	return (
 		<Fragment>
 			{
-				Array.isArray(specials) ? specials.map(({_id, title, fileUrl}) => {
+				Array.isArray(specials) ? specials.map(({_id, title, fileUrl, discount}) => {
 					return (
 						<div key={_id} className="col-md-4 col-sm-6 col-6">
 							<Link to={`/special/${_id}`} className="text-dark text-decoration-none">
@@ -17,7 +17,7 @@ const SpecialCardOne = ({specials}) => {
 											<span
 												style={{color: "red", textAlign:"left"}}
 											>
-											♥특가♥
+											♥{discount}% 할인♥
 											</span>
 											<br />
 											<span className="text-truncate" >{title}</span>

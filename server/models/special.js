@@ -27,6 +27,10 @@ const SpecialSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  discount: {
+    type: Number,
+    required: true,
+  }
 });
 
 const Special = mongoose.model("special", SpecialSchema);

@@ -17,7 +17,7 @@ const SpecialDetail = (req) => {
 
 	const dispatch = useDispatch();
 	// client/src/redux/reducers/specialReducer.js
-	const { specialDetail, creatorId, title, loading } = useSelector(
+	const { specialDetail, creatorId, title, discount, loading } = useSelector(
     (state) => state.special
   );
 	// client/src/redux/reducers/authReducer.js
@@ -94,7 +94,7 @@ const SpecialDetail = (req) => {
                 <div
 												style={{color: "red", textAlign:"left"}}
 											>
-											♥특가♥
+											♥{specialDetail.discount}% 할인♥
                 </div>
                 <div className="font-weight-bold text-big">
                   {specialDetail.title}
