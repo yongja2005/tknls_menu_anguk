@@ -8,7 +8,7 @@ const SpecialLink = () => {
 		<div id="special-link" className=''>
 			<a href='/special'>
 				오늘의<br />
-				특가
+				특가♥
 			</a>
 		</div>
 	)

@@ -12,8 +12,14 @@ const SpecialCardOne = ({specials}) => {
 							<Link to={`/special/${_id}`} className="text-dark text-decoration-none">
 								<Card className="mb-3">
 									<CardImg top alt="cards img" src={fileUrl}/>
-									<CardBody>
-										<CardTitle className="d-flex justify-content-between text-truncate">
+									<CardBody className='p-0'>
+										<CardTitle className="text-truncate pt-2 ps-2">
+											<span
+												style={{color: "red", textAlign:"left"}}
+											>
+											♥특가♥
+											</span>
+											<br />
 											<span className="text-truncate" >{title}</span>
 										</CardTitle>
 									</CardBody>

@@ -23,7 +23,10 @@ const MyRouter = () => (
   <Fragment>
     <AppNavbar />
     <SpecialLink />
-    <Container id="main-body">
+    <Container 
+      id="main-body"
+      style={{margin:"0 auto", overflowY:"scroll", overflowX:"hidden"}}
+    >
       <Switch>
         <Route path="/" exact component={PostCardList} />
         <Route path="/admin_login" exact component={LoginModal} />

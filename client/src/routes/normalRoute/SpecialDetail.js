@@ -87,12 +87,17 @@ const SpecialDetail = (req) => {
   
   const Body = (
     <>
-      {userId === creatorId ? EditButton : HomeButton}
-      <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
+      
+      <Row className="pt-3 mb-4 d-flex justify-content-between">
         {(() => {
           if (specialDetail && specialDetail.creator) {
             return (
               <Fragment>
+                <div
+												style={{color: "red", textAlign:"left"}}
+											>
+											♥특가♥
+                </div>
                 <div className="font-weight-bold text-big">
                   {specialDetail.title}
                 </div>
@@ -103,12 +108,6 @@ const SpecialDetail = (req) => {
       </Row>
       {specialDetail && specialDetail.comments ? (
         <Fragment>
-          <div className="d-flex justify-content-end align-items-baseline small">
-
-            <span> {specialDetail.date}</span>
-            <span>{specialDetail.comments.length}</span>
-            <span>{specialDetail.views}</span>
-          </div>
           <Row className="mb-3">
             <CKEditor
               editor={BalloonEditor}
@@ -149,6 +148,7 @@ const SpecialDetail = (req) => {
             /> */}
             </Container>
           </Row>
+          {userId === creatorId ? EditButton : HomeButton}
         </Fragment>
       ) : (
         <h1>hi</h1>

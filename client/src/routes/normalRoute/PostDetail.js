@@ -78,7 +78,7 @@ const PostDetail = (req) => {
       <Row className="d-flex justify-content-center pb-3">
         <Col className="col-sm-12 com-md-3">
           <Link to="/" className="btn btn-primary btn-block">
-            Home
+            뒤로
           </Link>
         </Col>
       </Row>
@@ -87,8 +87,7 @@ const PostDetail = (req) => {
   
   const Body = (
     <>
-      {userId === creatorId ? EditButton : HomeButton}
-      <Row className="border-bottom border-top border-primary p-3 mb-3 d-flex justify-content-between">
+      <Row className="pt-3 mb-4 d-flex justify-content-between">
         {(() => {
           if (postDetail && postDetail.creator) {
             return (
@@ -103,12 +102,6 @@ const PostDetail = (req) => {
       </Row>
       {postDetail && postDetail.comments ? (
         <Fragment>
-          <div className="d-flex justify-content-end align-items-baseline small">
-
-            <span> {postDetail.date}</span>
-            <span>{postDetail.comments.length}</span>
-            <span>{postDetail.views}</span>
-          </div>
           <Row className="mb-3">
             <CKEditor
               editor={BalloonEditor}
@@ -142,13 +135,9 @@ const PostDetail = (req) => {
                   )
                 ) : "Creator"
               }
-            {/* <Comments 
-              id={req.match.params.id}
-              userId={userId}
-              userName={userName}
-            /> */}
             </Container>
           </Row>
+          {userId === creatorId ? EditButton : HomeButton}
         </Fragment>
       ) : (
         <h1>hi</h1>

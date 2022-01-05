@@ -12,8 +12,8 @@ const PostCardOne = ({posts}) => {
 							<Link to={`/post/${_id}`} className="text-dark text-decoration-none">
 								<Card className="mb-3">
 									<CardImg top alt="cards img" src={fileUrl}/>
-									<CardBody>
-										<CardTitle className="d-flex justify-content-between text-truncate">
+									<CardBody className='p-0'>
+										<CardTitle className="d-flex justify-content-between text-truncate pt-2 ps-2">
 											<span className="text-truncate" >{title}</span>
 										</CardTitle>
 									</CardBody>

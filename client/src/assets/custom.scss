@@ -8,7 +8,7 @@
   width: 100px;
   height: 100px;
   border-radius: 50%;
-  background: orange;
+  background: red;
   color: black;
   text-align: center;
   position: fixed;
@@ -20,11 +20,11 @@
 }
 
 #special-link a {
+  color:white;
   text-decoration: none;
   font-weight: bold;
   font-size: 25px;
 }
-
 
 #main-body {
   min-height: 90vh;
@@ -67,5 +67,21 @@ textarea {
 .my_category {
   &:last-child {
     margin-bottom: 0.25rem;
+  }
+}
+
+
+
+
+@media (max-width: 768px) {
+  #special-link {
+    width: 80px;
+    height: 80px;
+    bottom: 80px;
+    Right: 20px;
+  }
+  
+  #special-link a {
+    font-size: 20px;
   }
 }
