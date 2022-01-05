@@ -8,7 +8,6 @@ import PostWrite from "./normalRoute/PostWrite";
 import PostDetail from "./normalRoute/PostDetail";
 import Search from "./normalRoute/Search";
 import PostEdit from "./normalRoute/PostEdit";
-import CategoryResult from "./normalRoute/CategoryResult";
 import Profile from "./normalRoute/Profile";
 import { EditProtectedRoute, ProfileProtectedRoute, SpEditProtectedRoute } from './protectedRoute/ProtectedRoute';
 import LoginModal from '../components/auth/loginModal';
@@ -44,13 +43,7 @@ const MyRouter = () => (
         <EditProtectedRoute 
           path="/post/:id/edit" exact component={PostEdit}
         />
-
-        <Route
-          path="/post/category/:categoryName"
-          exact
-          component={CategoryResult}
-        />
-
+        
         <Route path="/search/:searchTerm" exact component={Search} />
         <ProfileProtectedRoute
           path="/user/:userName/profile"

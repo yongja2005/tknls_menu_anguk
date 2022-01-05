@@ -17,7 +17,7 @@ const SpecialDetail = (req) => {
 
 	const dispatch = useDispatch();
 	// client/src/redux/reducers/specialReducer.js
-	const { specialDetail, creatorId, title, discount, loading } = useSelector(
+	const { specialDetail, creatorId, title, loading } = useSelector(
     (state) => state.special
   );
 	// client/src/redux/reducers/authReducer.js
