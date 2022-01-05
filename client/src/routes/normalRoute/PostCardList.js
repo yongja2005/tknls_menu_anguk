@@ -5,11 +5,10 @@ import { Helmet } from 'react-helmet'
 import { Row } from 'reactstrap';
 import { GrowingSpinner } from '../../components/spinner/Spinner'
 import PostCardOne from '../../components/post/postCardOne'
-import Category from '../../components/post/Category'
 
 const PostCardList = () => {
 	// redux/reducers/index.js에서 post: postReducer
-	const { posts, categoryFindResult, loading, postCount } = useSelector(
+	const { posts, loading, postCount } = useSelector(
     (state) => state.post
   );
 	const dispatch = useDispatch()
@@ -78,9 +77,6 @@ const PostCardList = () => {
 	return (
 		<Fragment>
 			<Helmet title="7.8 안국" />
-			{/* <Row className="border-bottom border-dark py-3 mb-3">
-        <Category posts={categoryFindResult} />
-      </Row> */}
 			<Row className=''>
 			<h1 className='border-bottom border-dark pt-3 mb-4'>안국점 메뉴</h1>
 				{posts ? <PostCardOne posts={posts} /> : GrowingSpinner}

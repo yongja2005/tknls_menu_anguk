@@ -10,7 +10,7 @@ import Search from "./normalRoute/Search";
 import PostEdit from "./normalRoute/PostEdit";
 import CategoryResult from "./normalRoute/CategoryResult";
 import Profile from "./normalRoute/Profile";
-import { EditProtectedRoute, ProfileProtectedRoute } from './protectedRoute/ProtectedRoute';
+import { EditProtectedRoute, ProfileProtectedRoute, SpEditProtectedRoute } from './protectedRoute/ProtectedRoute';
 import LoginModal from '../components/auth/loginModal';
 
 import SpecialCardList from './normalRoute/SpecialCardList';
@@ -37,18 +37,20 @@ const MyRouter = () => (
         <Route path="/special/post" exact component={SpecialWrite} />
         <Route path="/special/:id" exact component={SpecialDetail} />
 
-        <EditProtectedRoute 
+        <SpEditProtectedRoute 
           path="/special/:id/edit" exact component={SpecialEdit}
         />
 
         <EditProtectedRoute 
           path="/post/:id/edit" exact component={PostEdit}
         />
+
         <Route
           path="/post/category/:categoryName"
           exact
           component={CategoryResult}
         />
+
         <Route path="/search/:searchTerm" exact component={Search} />
         <ProfileProtectedRoute
           path="/user/:userName/profile"

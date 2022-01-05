@@ -3,8 +3,6 @@ import  express  from 'express'
 // Model
 import Special from '../../models/special'
 import User from '../../models/user'
-import Category from '../../models/category'
-import Comment from '../../models/comment'
 
 import auth from '../../middleware/auth'
 import moment from 'moment'
@@ -64,8 +62,7 @@ router.get("/skip/:skip", async (req, res) => {
       .limit(6)
       .sort({ date: -1 });
 
-    const categoryFindResult = await Category.find();
-    const result = { specialFindResult, categoryFindResult, specialCount };
+    const result = { specialFindResult, specialCount };
 
     res.json(result);
   } catch (e) {
@@ -81,7 +78,7 @@ router.get("/skip/:skip", async (req, res) => {
 router.post("/", auth, uploadS3.none(), async (req, res, next) => {
   try {
     console.log(req, "req");
-		const { title, contents, fileUrl, creator, category } = req.body;
+		const { title, contents, fileUrl, creator } = req.body;
 		//req.body.title, req.body.contents ... 같이 들어오는 모든 정보를 req.body에 지정한 N개만 집어넣음
 		const newSpecial = await Special.create({
 			// await 안쓰려면 });.exec() 를 써줘야함
@@ -92,55 +89,11 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
       date: moment().format("YYYY-MM-DD hh:mm:ss"),
     });
 
-		const findResult = await Category.findOne({
-      categoryName: category,
-    });
-
-		console.log(findResult, "find result*********")
-
-		if( findResult === undefined ) {
-			const newCategory = await Category.create({
-        categoryName: category,
-      });
-      await Special.findByIdAndUpdate(newSpecial._id, {
-        $push: { category: newCategory._id },
-      });
-      await Category.findByIdAndUpdate(newCategory._id, {
-        $push: { specials: newSpecial._id },
-      });
-      await User.findByIdAndUpdate(req.user.id, {
-        $push: {
-          specials: newSpecial._id,
-        },
-      });
-    } else if( findResult === null ) {
-      const newCategory = await Category.create({
-        categoryName: category,
-      });
-      await Special.findByIdAndUpdate(newSpecial._id, {
-        $push: { category: newCategory._id },
-      });
-      await Category.findByIdAndUpdate(newCategory._id, {
-        $push: { specials: newSpecial._id },
-      });
-      await User.findByIdAndUpdate(req.user.id, {
-        $push: {
-          specials: newSpecial._id,
-        },
-      });
-    } else {
-      await Category.findByIdAndUpdate(findResult._id, {
-        $push: { specials: newSpecial._id },
-      });
-      await Special.findByIdAndUpdate(newSpecial._id, {
-        category: findResult._id,
-      });
-      await User.findByIdAndUpdate(req.user.id, {
-        $push: {
-          specials: newSpecial._id,
-        },
-      });
-    }
+		await User.findByIdAndUpdate(req.user.id, {
+      $push: {
+        specials: newSpecial._id,
+      },
+    })
     return res.redirect(`/api/special/${newSpecial._id}`);
   } catch (e) {
     console.log(e);
@@ -155,7 +108,6 @@ router.get("/:id", async (req, res, next) => {
   try {
     const special = await Special.findById(req.params.id)
       .populate("creator", "name")
-      .populate({ path: "category", select: "categoryName" });
     special.views += 1;
     special.save();
     console.log(special);
@@ -167,78 +119,18 @@ router.get("/:id", async (req, res, next) => {
 });
 
 
-// [Comments Route]
-// @route Get api/special/:id/comments
-// @desc  Get All Comments
-// @access public
-router.get("/:id/comments", async (req, res) => {
-  try {
-    const comment = await Special.findById(req.params.id)
-      .populate({
-      // server/model/special.js 에서 "comments: [" 해당
-      path: "comments",
-      });
-    const result = comment.comments;
-    console.log(result, "comment load");
-    res.json(result);
-  } catch (e) {
-    console.log(e);
-  }
-});
-
-router.post("/:id/comments", async (req, res, next) => {
-  const newComment = await Comment.create({
-    contents: req.body.contents,
-    creator: req.body.userId,
-    creatorName: req.body.userName,
-    special: req.body.id,
-    date: moment().format("YYYY-MM-DD hh:mm:ss"),
-  });
-  console.log(newComment, "newComment");
-  try {
-    await Special.findByIdAndUpdate(req.body.id, {
-      $push: {
-        comments: newComment._id,
-      },
-    });
-    await User.findByIdAndUpdate(req.body.userId, {
-      $push: {
-        comments: {
-          special_id: req.body.id,
-          comment_id: newComment._id,
-        },
-      },
-    });
-    res.json(newComment);
-  } catch (e) {
-    console.log(e);
-    next(e);
-  }
-});
-
-
 // @route    Delete api/special/:id
 // @desc     Delete a Special
 // @access   Private
 router.delete("/:id", auth, async (req, res) => {
   await Special.deleteMany({ _id: req.params.id });
-  await Comment.deleteMany({ special: req.params.id });
   await User.findByIdAndUpdate(req.user.id, {
     $pull: {
       // server/model/user.js에서 specials, comments로 사용
       specials: req.params.id,
-      comments: { special_id: req.params.id },
     },
   });
-  const CategoryUpdateResult = await Category.findOneAndUpdate(
-    { specials: req.params.id },
-    { $pull: { specials: req.params.id } },
-    { new: true }
-  );
 
-  if (CategoryUpdateResult.specials.length === 0) {
-    await Category.deleteMany({ _id: CategoryUpdateResult });
-  }
   return res.json({ success: true });
 });
 
@@ -278,28 +170,6 @@ router.post("/:id/edit", auth, async(req, res, next) => {
   }
 })
 
-
-// @@ Category
-router.get("/category/:categoryName", async (req, res, next) => {
-  try {
-    const result = await Category.findOne(
-      {
-        categoryName: {
-          // $는 기본적인 몽구스 사용법이 아님
-          $regex: req.params.categoryName,
-          $options: "i",
-        },
-      },
-      // "specials" => model/category.js 에서 찾으라는 뜻
-      "specials")
-      .populate({ path: "specials" });
-    console.log(result, "Category Find result");
-    res.send(result);
-  } catch (e) {
-    console.log(e);
-    next(e);
-  }
-});
 
 
 export default router;

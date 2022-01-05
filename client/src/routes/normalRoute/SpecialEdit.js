@@ -19,16 +19,16 @@ import  { SPECIAL_EDIT_UPLOADING_REQUEST } from "../../redux/types"
 const SpecialEdit = () => {
 
 	const { isAuthenticated } = useSelector( (state) => state.auth)
-	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "", category: "" });
+	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "" });
 	const { specialDetail } = useSelector((state)=> state.special)
 	const dispatch = useDispatch()
 
 	const onSubmit = async (e) => {
     await e.preventDefault();
-    const { title, contents, fileUrl, category } = form;
+    const { title, contents, fileUrl } = form;
     const token = localStorage.getItem("token");
 		const id = specialDetail._id
-    const body = { title, contents, fileUrl, category, token, id };
+    const body = { title, contents, fileUrl, token, id };
     dispatch({
       type: SPECIAL_EDIT_UPLOADING_REQUEST,
       payload: body,
@@ -47,10 +47,9 @@ const SpecialEdit = () => {
 			title: specialDetail.title,
 			contents: specialDetail.contents,
 			fileUrl: specialDetail.fileUrl,
-			category: specialDetail.category.categoryName
 		})
 
-	}, [specialDetail.title, specialDetail.contents, specialDetail.fileUrl, specialDetail.category.categoryName])
+	}, [specialDetail.title, specialDetail.contents, specialDetail.fileUrl ])
 
 	const getDataFromCKEditor = (event, editor) => {
     const data = editor.getData();
@@ -115,17 +114,6 @@ const SpecialEdit = () => {
               onChange={onChange}
             />
           </FormGroup>
-          {/* <FormGroup className="mb-3">
-            <Label for="category">Category</Label>
-            <Input
-							defaultValue={specialDetail.category.categoryName}
-              type="text"
-              name="category"
-              id="category"
-              className="form-control"
-              onChange={onChange}
-            />
-          </FormGroup> */}
           <FormGroup className="mb-3">
             <Label for="content">Content</Label>
             <CKEditor

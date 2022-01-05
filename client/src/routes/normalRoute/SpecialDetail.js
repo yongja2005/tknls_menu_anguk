@@ -6,14 +6,12 @@ import {
   SPECIAL_DETAIL_LOADING_REQUEST,
   SPECIAL_DELETE_REQUEST,
 } from "../../redux/types";
-import { Button, Row, Col, Container } from "reactstrap";
+import { Button, Row, Col } from "reactstrap";
 import { Link } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import { GrowingSpinner } from '../../components/spinner/Spinner';
 import BalloonEditor from "@ckeditor/ckeditor5-editor-balloon/src/ballooneditor";
 import { editorConfiguration } from "../../components/editor/EditorConfig";
-
-// import Comments from '../../components/comments/Comments'
 
 const SpecialDetail = (req) => {
 
@@ -24,7 +22,6 @@ const SpecialDetail = (req) => {
   );
 	// client/src/redux/reducers/authReducer.js
 	const { userId } = useSelector((state) => state.auth);
-  const { comments } = useSelector((state) => state.comment)
   
   console.log(req ,": req");
 	useEffect(() => {
@@ -47,6 +44,7 @@ const SpecialDetail = (req) => {
       },
     });
   };
+
 
 	const EditButton = (
     <Fragment>
@@ -106,7 +104,7 @@ const SpecialDetail = (req) => {
           }
         })()}
       </Row>
-      {specialDetail && specialDetail.comments ? (
+      {specialDetail ? (
         <Fragment>
           <Row className="mb-3">
             <CKEditor
@@ -115,38 +113,6 @@ const SpecialDetail = (req) => {
               config={editorConfiguration}
               disabled="true"
             />
-        
-          </Row>
-          <Row>
-            <Container className="mb-3 border border-blue rounded">
-              {
-                Array.isArray(comments) ? comments.map(
-                  ({ contents, creator, date, _id, creatorName }) => (
-                    <div key={_id}>
-                      <Row className="justify-content-between p-2">
-                        <div className="font-weight-bold">
-                          {creatorName ? creatorName : creator}
-                        </div>
-                        <div className="text-small">
-                          <span className="font-weight-light">
-                            {date}
-                          </span>
-                        </div>
-                      </Row>
-                      <Row className="p-2">
-                        <div>{contents}</div>
-                      </Row>
-                      <hr />
-                    </div>
-                  )
-                ) : "Creator"
-              }
-            {/* <Comments 
-              id={req.match.params.id}
-              userId={userId}
-              userName={userName}
-            /> */}
-            </Container>
           </Row>
           {userId === creatorId ? EditButton : HomeButton}
         </Fragment>

@@ -2,9 +2,6 @@ import axios from 'axios'
 import { all, call, fork, put, takeEvery } from 'redux-saga/effects'
 import { push } from 'connected-react-router'
 import { 
-  CATEGORY_FIND_FAILURE,
-  CATEGORY_FIND_REQUEST,
-  CATEGORY_FIND_SUCCESS,
 	SPECIALS_LOADING_FAILURE, 
 	SPECIALS_LOADING_REQUEST, 
 	SPECIALS_LOADING_SUCCESS, 
@@ -237,32 +234,6 @@ function* watchSpecialEditUpload() {
 }
 
 
-// Category Find
-const CategoryFindAPI = (payload) => {
-  //encodeURIComponent mdn 찾아보기.. 한글들을 utf-8로 변경해줌
-  return axios.get(`/api/special/category/${encodeURIComponent(payload)}`);
-};
-
-function* CategoryFind(action) {
-  try {
-    const result = yield call(CategoryFindAPI, action.payload);
-    yield put({
-      type: CATEGORY_FIND_SUCCESS,
-      payload: result.data,
-    });
-  } catch (e) {
-    yield put({
-      type: CATEGORY_FIND_FAILURE,
-      payload: e,
-    });
-  }
-}
-
-function* watchCategoryFind() {
-  yield takeEvery(CATEGORY_FIND_REQUEST, CategoryFind);
-}
-
-
 // Search
 const SearchResultAPI = (payload) => {
   //encodeURIComponent mdn 찾아보기.. 한글들을 utf-8로 변경해줌
@@ -302,7 +273,6 @@ export default function* specialSaga() {
     fork(watchDeleteSpecial),
     fork(watchSpecialEditLoad),
     fork(watchSpecialEditUpload),
-    fork(watchCategoryFind),
-    fork(watchSearchResult)
+    fork(watchSearchResult),
   ]);
 }

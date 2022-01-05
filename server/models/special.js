@@ -23,16 +23,6 @@ const SpecialSchema = new mongoose.Schema({
     type: String,
     default: moment().format("YYYY-MM-DD HH:mm:ss"),
   },
-  category: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "category",
-  },
-  comments: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "comment",
-    },
-  ],
   creator: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",

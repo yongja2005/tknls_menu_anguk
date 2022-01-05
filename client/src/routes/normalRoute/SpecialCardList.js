@@ -5,7 +5,6 @@ import { Helmet } from 'react-helmet'
 import { Row } from 'reactstrap';
 import { GrowingSpinner } from '../../components/spinner/Spinner'
 import SpecialCardOne from '../../components/post/specialCardOne'
-// import Category from '../../components/post/Category'
 
 const SpecialCardList = () => {
 	// redux/reducers/index.js에서 special: specialReducer
@@ -78,9 +77,6 @@ const SpecialCardList = () => {
 	return (
 		<Fragment>
 			<Helmet title="7.8 안국" />
-			{/* <Row className="border-bottom border-dark py-3 mb-3">
-        <Category specials={categoryFindResult} />
-      </Row> */}
 			<Row className=''>
 					<h1 className='border-bottom border-dark pt-3 mb-3'>안국점 오늘의 특가</h1>
 				{specials ? <SpecialCardOne specials={specials} /> : GrowingSpinner}

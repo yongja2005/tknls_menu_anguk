@@ -1,7 +1,4 @@
-import { 
-	CATEGORY_FIND_FAILURE,
-	CATEGORY_FIND_REQUEST,
-	CATEGORY_FIND_SUCCESS,
+import {
 	SPECIALS_LOADING_FAILURE, 
 	SPECIALS_LOADING_REQUEST, 
 	SPECIALS_LOADING_SUCCESS, 
@@ -33,7 +30,6 @@ const initialState = {
   loading: false,
   error: "",
   creatorId: "",
-  categoryFindResult: "",
   title: "",
   searchBy: "",
   searchResult: "",
@@ -50,7 +46,6 @@ export default function specialReducerFunc(state = initialState, action) {
 			return {
 				...state,
 				specials: [...state.specials, ...action.payload.specialFindResult],
-        categoryFindResult: action.payload.categoryFindResult,
 				specialCount: action.payload.specialCount,
 				loading: false,
 			};
@@ -148,24 +143,6 @@ export default function specialReducerFunc(state = initialState, action) {
 			return {
 				...state,
 				error: action.payload,
-				loading: false,
-			};
-		case CATEGORY_FIND_REQUEST:
-			return {
-				...state,
-				specials: [],
-				loading: true,
-			};
-		case CATEGORY_FIND_SUCCESS:
-			return {
-				...state,
-				categoryFindResult: action.payload,
-				loading: false,
-			};
-		case CATEGORY_FIND_FAILURE:
-			return {
-				...state,
-				categoryFindResult: action.payload,
 				loading: false,
 			};
 		case SEARCH_REQUEST:
