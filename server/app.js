@@ -5,6 +5,7 @@ import cors from 'cors'
 import morgan from 'morgan'
 import mongoose from 'mongoose'
 import config from './config'
+import path from "path";
 
 //Routes
 import postRoutes from './routes/api/post'
@@ -15,6 +16,8 @@ import specialRoutes from './routes/api/special'
 
 const app = express()
 const { MONGO_URI} = config
+
+const prod = process.env.NODE_ENV === "production";
 
 app.use(hpp());
 app.use(helmet());
@@ -40,5 +43,12 @@ mongoose.connect(MONGO_URI, {
 	app.use("/api/auth", authRoutes);
 	app.use("/api/search", searchRoutes);
 	app.use("/api/special", specialRoutes)
+
+	if (prod) {
+		app.use(express.static(path.join(__dirname, "../client/build")));
+		app.get("*", (req, res) => {
+			res.sendFile(path.resolve(__dirname, "../client/build", "index.html"));
+		});
+	}
 
 export default app;
