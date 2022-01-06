@@ -20,9 +20,6 @@ import {
 	SPECIAL_UPLOADING_FAILURE, 
 	SPECIAL_UPLOADING_REQUEST, 
 	SPECIAL_UPLOADING_SUCCESS,
-  SEARCH_FAILURE,
-  SEARCH_REQUEST,
-  SEARCH_SUCCESS
 } from '../types'
 
 // All Specials load
@@ -234,37 +231,6 @@ function* watchSpecialEditUpload() {
 }
 
 
-// Search
-const SearchResultAPI = (payload) => {
-  //encodeURIComponent mdn 찾아보기.. 한글들을 utf-8로 변경해줌
-  return axios.get(`/api/search/${encodeURIComponent(payload)}`);
-};
-
-function* SearchResult(action) {
-  try {
-    const result = yield call(SearchResultAPI, action.payload);
-    yield put({
-      type: SEARCH_SUCCESS,
-      payload: result.data,
-    });
-    // 검색을 한 후에 엔터를 누르면 그 화면으로 넘어갈 수 있게
-    yield put(push(`/search/${encodeURIComponent(action.payload)}`))
-  } catch (e) {
-    yield put({
-      type: SEARCH_FAILURE,
-      payload: e,
-    });
-    yield put(push("/"))
-  }
-}
-
-function* watchSearchResult() {
-  yield takeEvery(SEARCH_REQUEST, SearchResult);
-}
-
-
-
-
 export default function* specialSaga() {
 	yield all([ 
     fork(watchLoadSpecials), 
@@ -273,6 +239,5 @@ export default function* specialSaga() {
     fork(watchDeleteSpecial),
     fork(watchSpecialEditLoad),
     fork(watchSpecialEditUpload),
-    fork(watchSearchResult),
   ]);
 }
