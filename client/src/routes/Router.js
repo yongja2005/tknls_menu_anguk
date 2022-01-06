@@ -24,7 +24,7 @@ const MyRouter = () => (
     <SpecialLink />
     <Container 
       id="main-body"
-      style={{margin:"0 auto", overflowY:"scroll", overflowX:"hidden"}}
+      style={{margin:"0 auto", padding:"0 10px", overflowY:"scroll", overflowX:"hidden"}}
     >
       <Switch>
         <Route path="/" exact component={PostCardList} />
