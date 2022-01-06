@@ -19,16 +19,16 @@ import  { POST_EDIT_UPLOADING_REQUEST } from "../../redux/types"
 const PostEdit = () => {
 
 	const { isAuthenticated } = useSelector( (state) => state.auth)
-	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "" });
+	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "", discount: "", });
 	const { postDetail } = useSelector((state)=> state.post)
 	const dispatch = useDispatch()
 
 	const onSubmit = async (e) => {
     await e.preventDefault();
-    const { title, contents, fileUrl } = form;
+    const { title, contents, fileUrl, discount } = form;
     const token = localStorage.getItem("token");
 		const id = postDetail._id
-    const body = { title, contents, fileUrl, token, id };
+    const body = { title, contents, fileUrl, discount, token, id };
     dispatch({
       type: POST_EDIT_UPLOADING_REQUEST,
       payload: body,
@@ -47,9 +47,10 @@ const PostEdit = () => {
 			title: postDetail.title,
 			contents: postDetail.contents,
 			fileUrl: postDetail.fileUrl,
+      discount: postDetail.discount,
 		})
 
-	}, [postDetail.title, postDetail.contents, postDetail.fileUrl ])
+	}, [postDetail.title, postDetail.contents, postDetail.fileUrl, postDetail.discount ])
 
 	const getDataFromCKEditor = (event, editor) => {
     const data = editor.getData();
@@ -110,6 +111,17 @@ const PostEdit = () => {
               type="text"
               name="title"
               id="title"
+              className="form-control"
+              onChange={onChange}
+            />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <Label for="discount">Discount</Label>
+            <Input
+							defaultValue={postDetail.discount}
+              type="text"
+              name="discount"
+              id="discount"
               className="form-control"
               onChange={onChange}
             />

@@ -27,6 +27,10 @@ const PostSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
   },
+  discount: {
+    type: Number,
+    default: "",
+  }
 });
 
 const Post = mongoose.model("post", PostSchema);

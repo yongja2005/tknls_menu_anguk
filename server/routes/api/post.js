@@ -78,7 +78,7 @@ router.get("/skip/:skip", async (req, res) => {
 router.post("/", auth, uploadS3.none(), async (req, res, next) => {
   try {
     console.log(req, "req");
-		const { title, contents, fileUrl, creator } = req.body;
+		const { title, contents, fileUrl, creator, discount } = req.body;
 		//req.body.title, req.body.contents ... 같이 들어오는 모든 정보를 req.body에 지정한 N개만 집어넣음
 		const newPost = await Post.create({
 			// await 안쓰려면 });.exec() 를 써줘야함
@@ -87,8 +87,14 @@ router.post("/", auth, uploadS3.none(), async (req, res, next) => {
       fileUrl,
       creator: req.user.id,
       date: moment().format("YYYY-MM-DD hh:mm:ss"),
+      discount,
     });
 
+    await User.findByIdAndUpdate(req.user.id, {
+      $push: {
+        posts: newPost._id,
+      },
+    })
 	
     return res.redirect(`/api/post/${newPost._id}`);
   } catch (e) {
@@ -148,13 +154,13 @@ router.get("/:id/edit", auth, async(req, res, next) => {
 router.post("/:id/edit", auth, async(req, res, next) => {
   console.log(req, "api/post/:id/edit")
   // const {body: {title, contents, fileUrl, category, id}} = req
-  const {body: {title, contents, fileUrl, id}} = req
+  const {body: {title, contents, fileUrl, discount, id}} = req
 
   try {
     const modified_post = await Post.findByIdAndUpdate(
       id, {
         // 수정한 날짜가 반영될지는 추후에 선택
-        title, contents, fileUrl, date: moment().format("YYYY-MM-DD hh:mm:ss")
+        title, contents, fileUrl, discount, date: moment().format("YYYY-MM-DD hh:mm:ss")
       },
       { new: true }
     )

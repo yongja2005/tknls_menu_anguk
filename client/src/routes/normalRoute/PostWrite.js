@@ -12,14 +12,14 @@ dotenv.config()
 const PostWrite = () => {
 
 	const { isAuthenticated } = useSelector( (state) => state.auth)
-	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "" });
+	const [form, setValues] = useState({ title: "", contents: "", fileUrl: "", discount: "" });
 	const dispatch = useDispatch()
 
 	const onSubmit = async (e) => {
     await e.preventDefault();
-    const { title, contents, fileUrl } = form;
+    const { title, contents, fileUrl, discount } = form;
     const token = localStorage.getItem("token");
-    const body = { title, contents, fileUrl, token };
+    const body = { title, contents, fileUrl,discount, token };
     dispatch({
       type: POST_UPLOADING_REQUEST,
       payload: body,
@@ -91,6 +91,16 @@ const PostWrite = () => {
               type="text"
               name="title"
               id="title"
+              className="form-control"
+              onChange={onChange}
+            />
+          </FormGroup>
+          <FormGroup className="mb-3">
+            <Label for="discount">Discount</Label>
+            <Input
+              type="text"
+              name="discount"
+              id="discount"
               className="form-control"
               onChange={onChange}
             />

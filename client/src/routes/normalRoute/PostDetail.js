@@ -90,6 +90,16 @@ const PostDetail = (req) => {
           if (postDetail && postDetail.creator) {
             return (
               <Fragment>
+                {postDetail.discount ? (
+												<Fragment>
+													<div
+														style={{color: "red", textAlign:"left"}}
+													>
+													♥{postDetail.discount}% 할인♥
+													</div>
+												</Fragment>
+											): ("")
+											}
                 <div className="font-weight-bold text-big">
                   {postDetail.title}
                 </div>
