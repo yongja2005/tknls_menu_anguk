@@ -20,7 +20,15 @@ const { MONGO_URI} = config
 const prod = process.env.NODE_ENV === "production";
 
 app.use(hpp());
-app.use(helmet());
+app.use(
+
+	helmet({
+
+	contentSecurityPolicy: false,
+
+	})
+
+	);
 
 // origin: true => 모두 허용
 app.use(cors({origin: true, Credential: true}));
