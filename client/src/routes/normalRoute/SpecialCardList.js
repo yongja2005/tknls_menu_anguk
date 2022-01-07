@@ -1,20 +1,32 @@
 import React, {Fragment, useEffect, useRef, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { SPECIALS_LOADING_REQUEST } from '../../redux/types'
+import { SPECIALS_LOADING_REQUEST, POSTS_LOADING_REQUEST } from '../../redux/types'
 import { Helmet } from 'react-helmet'
 import { Row } from 'reactstrap';
 import { GrowingSpinner } from '../../components/spinner/Spinner'
 import SpecialCardOne from '../../components/post/specialCardOne'
+
+import PostSpecialCardOne from '../../components/post/postSpecialCardOne'
 
 const SpecialCardList = () => {
 	// redux/reducers/index.js에서 special: specialReducer
 	const { specials, loading, specialCount } = useSelector(
     (state) => state.special
   );
+
+	const { posts } = useSelector(
+    (state) => state.post
+  );
+
 	const dispatch = useDispatch()
 
 	useEffect(() => {
 		dispatch({type:SPECIALS_LOADING_REQUEST, payload: 0})
+	}, [dispatch]);
+
+
+	useEffect(() => {
+		dispatch({type:POSTS_LOADING_REQUEST, payload: 0})
 	}, [dispatch]);
 
 
@@ -79,6 +91,7 @@ const SpecialCardList = () => {
 			<Helmet title="7.8 안국" />
 			<Row className=''>
 					<h1 className='border-bottom border-dark pt-3 mb-3'>안국점 오늘의 특가</h1>
+				{posts ? <PostSpecialCardOne posts={posts} /> : GrowingSpinner}
 				{specials ? <SpecialCardOne specials={specials} /> : GrowingSpinner}
 			</Row>
 			<div ref={lastSpecialElementRef}>

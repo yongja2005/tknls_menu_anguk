@@ -22,7 +22,7 @@ const Search = () => {
 	return (
 		<div className='pt-3' >
 			<Container className='border-bottom border-dark mb-4'>
-				<h1>"{searchTerm}"이 포함된 안국점 메뉴</h1>
+				<h1>"{searchTerm}"이(가) 포함된 안국점 메뉴</h1>
 			</Container>
 			<Row>
 				<PostCardOne posts={ searchResult } />
